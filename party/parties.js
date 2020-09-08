@@ -2,18 +2,35 @@ const playerWhitelist = [
   'Lorinth',
   'accusedmonk',
   'abusedmonk',
-  'sluttymonk'
+  'sluttymonk',
+  'preachermonk'
 ]
-var assistName = 'abusedmonk';
+const assistName = 'abusedmonk';
 ​
 function on_party_invite(name) {
   set_message('joined ' + name);
   
-  if(playerWhitelist.contains(name)){
+  if(playerWhitelist.includes(name)){
       accept_party_invite(name);
   }
 }
 ​
+const reInviteParty = (expectedMembers) => {
+  const party = get_party();
+  const currentMembers = Object.keys(party);
+
+  if (currentMembers.length >= expectedMembers.length)
+    return;
+
+  expectedMembers.map(p => {
+    const player = get_player(p);
+
+    if(player && !currentMembers.includes(p)){
+      send_party_invite(p);
+    }
+  });
+}
+
 const getTankTarget = () => {
   var player = get_player(assistName);
   

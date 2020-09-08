@@ -19,7 +19,7 @@ const autoAttack = (target) => {
       );
   }
   else if(can_attack(target)){
-      set_message("Attacking");
+      set_message('Attacking');
       attack(target);
   }
 }
